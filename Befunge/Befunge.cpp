@@ -1,10 +1,3 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <cctype>
-
-#include <fstream>
-
 #include "Befunge.h"
 
 using namespace std;
@@ -18,10 +11,8 @@ Befunge::Befunge(ifstream & codingRead){
 }
 
 void Befunge::Exec(){
-    int i =0,y =0;
+    int i = 0, y = 0;
     while(!ending){
-        //cout <<"ligne : "<<y<<"                        "<<"caracteres num : "<<i<<"               "<<"symbole : "<<code[y][i]<< endl;//DEBUGING
-        //switch statement
         switch(code[y][i]){
 
             case '+':
@@ -69,6 +60,7 @@ void Befunge::Exec(){
                 break;
 
             case '?':
+				FonctionAlea();
                 break;
 
             case '_':
@@ -108,15 +100,19 @@ void Befunge::Exec(){
                 break;
 
             case 'p':
+				FonctionDepilexyv(i, y);
                 break;
 
             case 'g':
+				FonctionDepilexy(i, y);
                 break;
 
             case '&':
+				FonctionDemandeNombre();
                 break;
 
             case '~':
+				FonctionDemandeCaractere();
                 break;
 
             case '@':
@@ -142,6 +138,7 @@ void Befunge::SensLecture(int & i,int & y){
     else if(sensFleche == 3) y++;
     else if(sensFleche == 4) i--;
 }
+
 
 void Befunge::FonctionTrampoline(int & i, int & y){
     SensLecture(i,y);
@@ -243,7 +240,7 @@ void Befunge::FonctionModulo(){
 void Befunge::FonctionNonLogique(){
     int digit;
     if (memoire.size() >= 1 ){
-        if (memoire.top() == 0 ||memoire.top() == NULL){
+        if (memoire.top() == 0){
             memoire.push(1);
         }
         else{
@@ -287,6 +284,10 @@ void Befunge::FonctionBas(){
     sensFleche = 3;
 }
 
+void Befunge::FonctionAlea()
+{
+	sensFleche = rand() % 4 + 1;
+}
 
 //FONCTION AFFICHER
 void Befunge::FonctionDepileEntier(){
@@ -369,7 +370,7 @@ void Befunge::FonctionPermute(){
         memoire.push(a);
     }
     else{
-        cout <<"ERROR : Il n'y a rien a memoire \ "<<endl;
+        cout <<"ERROR : Il n'y a rien a memoire "<<endl;
     }
 }
 void Befunge::FonctionDepile(){
@@ -381,6 +382,31 @@ void Befunge::FonctionDepile(){
     }
 }
 
+//FONCTION SAUVEGARDE
+void Befunge::FonctionDepilexyv(int & i,int & y)
+{
+    if (memoire.size() > 2){
+        y = memoire.pop();
+        i = memoire.pop();
+        int v = memoire.pop();
+        code[y][i] = char(v);
+    }
+    else{
+        cout <<"ERROR : Il n'y a rien a memoire "<<endl;
+    }
+}
+
+void Befunge::FonctionDepilexy(int & i,int & y)
+{
+    if (memoire.size() > 1){
+        y = memoire.pop();
+        i = memoire.pop();
+        memoire.push(int(code[y][i]));
+    }
+    else{
+        cout <<"ERROR : Il n'y a rien a memoire "<<endl;
+    }
+}
 
 //FONCTION DEMMANDE
 void Befunge::FonctionDemandeNombre(){

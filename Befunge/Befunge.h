@@ -1,10 +1,12 @@
 #ifndef BEFUNGE_H_INCLUDED
 #define BEFUNGE_H_INCLUDED
 
+#include <iostream>
+#include <time.h>
 #include <vector>
 #include <string>
 #include <stack>
-
+#include <cctype>
 #include <fstream>
 
 class Befunge
@@ -46,8 +48,8 @@ class Befunge
         void FonctionDepileEntier();        //D�pile une valeur et l'affiche en tant qu'entier
         void FonctionDepileASCII();         // 	D�pile une valeur et l'affiche en tant que caract�re ASCII
         void FonctionTrampoline(int & i, int & y);          //Trampoline: saute la cellule suivante
-        void FonctionDepilexyv();           // 	D�pile y, x et v, puis change les caract�res � la position (x,y) dans le programme en le caract�re dont le code ASCII est v
-        void FonctionDepilexy();            // 	D�pile y et x, puis empile la valeur ASCII du caract�re situ� � cette position dans le programme
+        void FonctionDepilexyv(int & i,int & y);           // 	D�pile y, x et v, puis change les caract�res � la position (x,y) dans le programme en le caract�re dont le code ASCII est v
+        void FonctionDepilexy(int & i,int & y);            // 	D�pile y et x, puis empile la valeur ASCII du caract�re situ� � cette position dans le programme
         void FonctionDemandeNombre();       // 	Demande un nombre � l'utilisateur et l'empile
         void FonctionDemandeCaractere();  // 	Demande un caract�re � l'utilisateur et empile son code ASCII
         void FonctionFin();                 // 	Termine le programme
