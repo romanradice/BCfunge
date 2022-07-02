@@ -1,4 +1,4 @@
-# Befunge
+# BCfunge
 
 ## Project
 A simple Befunge interpreter
